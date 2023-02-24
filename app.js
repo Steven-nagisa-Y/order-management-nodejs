@@ -18,12 +18,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const logger = (req, res, next) => {
+// 日志中间件
+app.use((req, res, next) => {
   console.log(req.method, req.originalUrl, req.query, req.body);
   next();
-};
-
-app.use(logger);
+});
 
 app.get("/", (req, res) => {
   res.json({ session: req.session, cookie: req.cookies });

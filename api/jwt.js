@@ -21,5 +21,5 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// 导出鉴权中间件和 express-jwt 检查
+// 导出鉴权中间件
 module.exports = { authenticateToken };

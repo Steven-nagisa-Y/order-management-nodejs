@@ -32,13 +32,13 @@ app.use("/auth", admin);
 
 // 暂时不开启auth
 // 客户
-app.use("/customers", customers);
+app.use("/customers", authenticateToken, customers);
 // 订单
-app.use("/orders", orders);
+app.use("/orders", authenticateToken, orders);
 // 产品
-app.use("/product", product);
+app.use("/product", authenticateToken, product);
 // 订单数量
-app.use("/quantity", quantity);
+app.use("/quantity", authenticateToken, quantity);
 
 // 禁止未定义的请求
 app.use((req, res, next) => {

@@ -8,10 +8,9 @@ const pool = mysql.createPool(database);
 router.get("/", (req, res) => {
   pool.query("SELECT * FROM Customer", (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.send(results);
+    } else res.send(results);
   });
 });
 
@@ -21,10 +20,9 @@ router.get("/:id", (req, res) => {
   const sql = "SELECT * FROM Customer WHERE customer_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    if (results.length > 0) {
+    } else if (results.length > 0) {
       res.json(results[0]);
     } else {
       res.sendStatus(404);
@@ -38,13 +36,13 @@ router.post("/", (req, res) => {
   const sql = "INSERT INTO Customer (name, phone) VALUES (?, ?)";
   pool.query(sql, [name, phone], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.status(201).json({
-      ok: true,
-      errMsg: "",
-    });
+    } else
+      res.status(201).json({
+        ok: true,
+        errMsg: "",
+      });
   });
 });
 
@@ -55,10 +53,9 @@ router.put("/:id", (req, res) => {
   const sql = "UPDATE Customer SET name = ?, phone = ? WHERE customer_id = ?";
   pool.query(sql, [name, phone, id], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.sendStatus(202);
+    } else res.sendStatus(202);
   });
 });
 
@@ -68,10 +65,9 @@ router.delete("/:id", (req, res) => {
   const sql = "DELETE FROM Customer WHERE customer_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.sendStatus(200);
+    } else res.sendStatus(200);
   });
 });
 

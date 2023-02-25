@@ -9,10 +9,9 @@ router.get("/", (req, res) => {
   const sql = "SELECT * FROM `Product`";
   pool.query(sql, (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.json(results);
+    } else res.json(results);
   });
 });
 
@@ -22,10 +21,9 @@ router.get("/:id", (req, res) => {
   const sql = "SELECT * FROM Product WHERE product_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    if (results.length > 0) {
+    } else if (results.length > 0) {
       res.json(results[0]);
     } else {
       res.sendStatus(404);
@@ -39,13 +37,13 @@ router.post("/", (req, res) => {
   const sql = "INSERT INTO Product (product_name, price) VALUES (?, ?)";
   pool.query(sql, [productName, price], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.status(201).json({
-      ok: true,
-      errMsg: "",
-    });
+    } else
+      res.status(201).json({
+        ok: true,
+        errMsg: "",
+      });
   });
 });
 
@@ -57,10 +55,9 @@ router.put("/:id", (req, res) => {
     "UPDATE Product SET product_name = ?, price = ? WHERE product_id = ?";
   pool.query(sql, [productName, price, id], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.sendStatus(202);
+    } else res.sendStatus(202);
   });
 });
 
@@ -70,10 +67,9 @@ router.delete("/:id", (req, res) => {
   const sql = "DELETE FROM Product WHERE product_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn("[Catch]" ,err);
+      console.warn(err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
-    }
-    res.sendStatus(200);
+    } else res.sendStatus(200);
   });
 });
 

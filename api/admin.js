@@ -11,15 +11,15 @@ router.post("/admin", (req, res) => {
       // 如果密码不正确
       if (!result) {
         return res.status(401).json({ errMsg: "密码不正确" });
+      } else {
+        // 生成 Token，有效期1小时
+        const token = jwt.sign({ name }, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "1h",
+        });
+
+        // 返回 Token
+        res.json({ token });
       }
-
-      // 生成 Token，有效期1小时
-      const token = jwt.sign({ name }, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
-      });
-
-      // 返回 Token
-      res.json({ token });
     });
   } else {
     res.sendStatus(401);

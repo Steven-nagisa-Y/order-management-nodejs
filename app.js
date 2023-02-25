@@ -1,5 +1,6 @@
 const Port = 8787;
 require("dotenv").config();
+require("./log");
 
 // 引入所需的模块
 const express = require("express");

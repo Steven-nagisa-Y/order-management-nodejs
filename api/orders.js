@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   const sql = "SELECT * FROM `Order`";
   pool.query(sql, (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.json(results);
@@ -22,7 +22,7 @@ router.get("/:id", (req, res) => {
   const sql = "SELECT * FROM `Order` WHERE order_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     if (results.length > 0) {
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
   const sql = "INSERT INTO `Order` (order_date, customer_id) VALUES (?, ?)";
   pool.query(sql, [orderDate, customerId], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.status(201).json({
@@ -57,7 +57,7 @@ router.put("/:id", (req, res) => {
     "UPDATE `Order` SET order_date = ?, customer_id = ? WHERE order_id = ?";
   pool.query(sql, [orderDate, customerId, id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.status(202).json({
@@ -73,7 +73,7 @@ router.delete("/:id", (req, res) => {
   const sql = "DELETE FROM `Order` WHERE order_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.status(200).json({

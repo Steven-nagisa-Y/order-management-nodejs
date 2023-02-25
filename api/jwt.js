@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 function authenticateToken(req, res, next) {
   // 获取 Authorization 请求头中的 token
   const authHeader = req.headers["authorization"];
-  const token = authHeader || authHeader.split(" ")[1];
+  const token = authHeader;
   // 如果没有提供 token，则返回 401 未授权状态码
   if (!token) {
     return res.sendStatus(401);

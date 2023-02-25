@@ -8,7 +8,7 @@ const pool = mysql.createPool(database);
 router.get("/", (req, res) => {
   pool.query("SELECT * FROM Customer", (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.send(results);
@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
   const sql = "SELECT * FROM Customer WHERE customer_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     if (results.length > 0) {
@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
   const sql = "INSERT INTO Customer (name, phone) VALUES (?, ?)";
   pool.query(sql, [name, phone], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.status(201).json({
@@ -55,7 +55,7 @@ router.put("/:id", (req, res) => {
   const sql = "UPDATE Customer SET name = ?, phone = ? WHERE customer_id = ?";
   pool.query(sql, [name, phone, id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.sendStatus(202);
@@ -68,7 +68,7 @@ router.delete("/:id", (req, res) => {
   const sql = "DELETE FROM Customer WHERE customer_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     }
     res.sendStatus(200);

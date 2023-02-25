@@ -26,11 +26,4 @@ router.post("/admin", (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    console.log(err);
-    res.send("退出成功");
-  });
-});
-
 module.exports = router;

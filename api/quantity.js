@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   const sql = "SELECT * FROM `Order_Product`";
   pool.query(sql, (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     } else res.json(results);
   });
@@ -21,7 +21,7 @@ router.get("/product/:id", (req, res) => {
   const sql = "SELECT * FROM Order_Product WHERE product_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     } else if (results.length > 0) {
       res.json(results[0]);
@@ -37,7 +37,7 @@ router.get("/orders/:id", (req, res) => {
   const sql = "SELECT * FROM Order_Product WHERE order_id = ?";
   pool.query(sql, [id], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     } else if (results.length > 0) {
       res.json(results[0]);
@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
     "INSERT INTO Order_Product (order_id, product_id, quantity) VALUES (?, ?, ?)";
   pool.query(sql, [orderId, productId, quantity], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     } else
       res.status(201).json({
@@ -71,7 +71,7 @@ router.put("/", (req, res) => {
     "UPDATE `Order_Product` SET quantity = ? WHERE order_id = ? AND product_id = ?;";
   pool.query(sql, [quantity, orderId, productId], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     } else res.sendStatus(202);
   });
@@ -84,7 +84,7 @@ router.delete("/", (req, res) => {
     "DELETE FROM `Order_Product` WHERE order_id = ? AND product_id = ?;";
   pool.query(sql, [orderId, productId], (err, results) => {
     if (err) {
-      console.warn(err);
+      console.warn("[Catch]" ,err);
       res.status(400).json({ ok: false, errMsg: err.sqlMessage });
     } else if (results.affectedRows < 1) {
       res.status(400).json({ ok: false, errMsg: "无符合条件的数据" });
